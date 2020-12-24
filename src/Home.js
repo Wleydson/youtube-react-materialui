@@ -19,6 +19,8 @@ import {
     Switch
 } from '@material-ui/core';
 
+import { useTheme } from '@material-ui/core/styles';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import VideoCall from '@material-ui/icons/VideoCall';
@@ -35,6 +37,7 @@ import AddCircle from '@material-ui/icons/AddCircle';
 const useStyles  = makeStyles( (theme) => ({
     root:{
       height: '100vh',
+      background: theme.palette.background.dark
     },
     appBar:{
         boxShadow: 'none',
@@ -148,30 +151,33 @@ const videos = [
     },
   ];
 
-function Home() {
+function Home({ darkMode, setDarkMode }) {
     const classes = useStyles ();
+    const theme = useTheme();
 
     return(
         <div className={classes.root}>
             <AppBar color="inherit" className={classes.appBar}>
             <Toolbar>
-                <IconButton edge="start" className={classes.MenuIcon} color="inherit" aria-label="menu">
+                <IconButton edge="start" className={classes.MenuIcon} aria-label="menu">
                     <MenuIcon />
                 </IconButton>
 
-                <img src="/images/preto.png" alt="logo" className={classes.logo}/>
+                <img src={ theme.palette.type === 'dark' ? "/images/branco.png" : "/images/preto.png" } alt="logo" className={classes.logo}/>
 
                 <div className={classes.grow}/>
-        
-                <IconButton className={classes.icons} color="inherit">
+                
+                <Switch value={darkMode} onChange={() => setDarkMode(!darkMode)} />
+
+                <IconButton className={classes.icons}>
                     <VideoCall />
                 </IconButton>
 
-                <IconButton className={classes.icons} color="inherit">
+                <IconButton className={classes.icons}>
                     <Apps />
                 </IconButton>
 
-                <IconButton className={classes.icons} color="inherit">
+                <IconButton className={classes.icons}>
                     <Notifications />
                 </IconButton>
 
